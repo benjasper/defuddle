@@ -441,7 +441,10 @@ export function createMarkdownContent(content: string, url: string) {
 			if (!href) return content;
 			const title = formatMarkdownLinkTitle(node.getAttribute('title'));
 			const destination = formatMarkdownLinkDestination(href);
-			return `[${content}](${destination}${title})`;
+			const linkContent = node.querySelector('img')
+				? content.replace(/^\n+|\n+$/g, '')
+				: content;
+			return `[${linkContent}](${destination}${title})`;
 		}
 	});
 
